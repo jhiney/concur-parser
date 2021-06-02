@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace concur_parser
@@ -7,9 +8,10 @@ namespace concur_parser
     {
         static void Main(string[] args)
         {
-            int test = 0;
-            Console.WriteLine("Hello World!");
-
+            
+            Console.Write("Enter Month End Closing Date (YYYY-MM-DD): ");
+            string newDate = Console.ReadLine();
+            List<string> newItems = new List<string>();
 
             StreamReader reader = File.OpenText("C:\\Users\\jhiney\\source\\repos\\concur-parser\\test.txt");
             string line;
@@ -20,15 +22,14 @@ namespace concur_parser
                 foreach (string item in expenseLines)
                 {
                     string[] parts = item.Split('|');
+                    //part that needs changing
+                    parts[25] = newDate;
 
-                    //this is the part right before the Report Name
-                    Console.WriteLine(parts[5]+ " "+parts[25]);
-                       
-                    
-                    test++;
+                    newItems.Add(string.Join('|', parts)); 
                 }
             }
-            Console.WriteLine(test.ToString());
+            File.WriteAllLines("C:\\Users\\jhiney\\source\\repos\\concur-parser\\output.txt", newItems.ToArray());
+            Console.WriteLine("Done");
             Console.Read();
         }
     }
