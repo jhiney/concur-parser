@@ -12,20 +12,18 @@ namespace concur_parser
             //Starting variables
             //TODO: Make the starting filepath either dynamic or something other than being hardcoded.
             string filePath = @"K:\ACCTING\GENERAL\Expense reports\Concur Extracts";
-            string backUp = null;
             string previousPath = null;
             bool exploringFiles = true;         
-            filePath = MainMenu(filePath, filePath);
+            filePath = MainMenu(filePath);
             
             while (exploringFiles)
             {  
                 //if the filePath is not 0 and the end of the line hasn't been found
                 if (filePath.Length != 0 && !filePath.Equals("found"))
                 {
-                    //set the previous path before getting a new one
-                    backUp = previousPath;
+                    //set the previous path before getting a new one             
                     previousPath = filePath;     
-                    filePath = MainMenu(filePath, backUp);
+                    filePath = MainMenu(filePath);
                     
                 }
                 else
@@ -70,8 +68,10 @@ namespace concur_parser
             Console.Read();
         }
 
-        public static string MainMenu(string filePath, string backup) {
+        public static string MainMenu(string filePath) {
 
+            string backup = Directory.GetParent(filePath).ToString();
+            Console.WriteLine("Currently looking in: " + filePath);
             //if the found filepath is NOT a text file, keep looking through folders
             if (!filePath.EndsWith(".txt"))
             {
