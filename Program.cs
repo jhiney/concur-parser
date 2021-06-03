@@ -4,27 +4,26 @@ using System.IO;
 
 namespace concur_parser
 {
-    class Program
-    { 
+    internal class Program
+    {
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             //Starting variables
             //TODO: Make the starting filepath either dynamic or something other than being hardcoded.
             string filePath = @"K:\ACCTING\GENERAL\Expense reports\Concur Extracts";
             string previousPath = null;
-            bool exploringFiles = true;         
+            bool exploringFiles = true;
             filePath = MainMenu(filePath);
-            
+
             while (exploringFiles)
-            {  
+            {
                 //if the filePath is not 0 and the end of the line hasn't been found
                 if (filePath.Length != 0 && !filePath.Equals("found"))
                 {
-                    //set the previous path before getting a new one             
-                    previousPath = filePath;     
+                    //set the previous path before getting a new one
+                    previousPath = filePath;
                     filePath = MainMenu(filePath);
-                    
                 }
                 else
                 {
@@ -36,9 +35,9 @@ namespace concur_parser
             //Ask the user for a date to overwrite the text file
             Console.Write("Enter Month End Closing Date (YYYY-MM-DD): ");
             string newDate = Console.ReadLine();
-            
+
             List<string> newItems = new List<string>();
-            
+
             //We open the previous path because technically the filePath is now "found"
             //TODO: Need to think of a more elegant solution for this
             StreamReader reader = File.OpenText(previousPath);
@@ -47,7 +46,7 @@ namespace concur_parser
             //While there are still lines to be read
             while ((line = reader.ReadLine()) != null)
             {
-                //split the lines 
+                //split the lines
                 string[] expenseLines = line.Split('\n');
                 foreach (string item in expenseLines)
                 {
@@ -56,20 +55,20 @@ namespace concur_parser
                     //part that needs changing
                     parts[25] = newDate;
                     //add back the delimiter
-                    newItems.Add(string.Join('|', parts)); 
+                    newItems.Add(string.Join('|', parts));
                 }
             }
-           //write all the lines to the output file
-           //TODO: Make the output file dynamic
-           File.WriteAllLines("C:\\Users\\jhiney\\source\\repos\\concur-parser\\output.txt", newItems.ToArray());
+            //write all the lines to the output file
+            //TODO: Make the output file dynamic
+            File.WriteAllLines("C:\\Users\\jhiney\\source\\repos\\concur-parser\\output.txt", newItems.ToArray());
 
             //You are done - read a character
             Console.WriteLine("Done");
             Console.Read();
         }
 
-        public static string MainMenu(string filePath) {
-
+        public static string MainMenu(string filePath)
+        {
             string backup = Directory.GetParent(filePath).ToString();
             Console.WriteLine("Currently looking in: " + filePath);
             //if the found filepath is NOT a text file, keep looking through folders
