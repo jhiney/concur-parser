@@ -81,13 +81,15 @@ namespace concur_parser
                     //write out the subdirectories as a menu
                     for (int i = 0; i < filePaths.Length; i++)
                     {
-                        Console.WriteLine((i + 1).ToString() + ") " + filePaths[i]);
+                        Console.WriteLine((i + 1).ToString() + "> " + filePaths[i]);
                     }
+                    
                     //let the user pick a menu
                     int select = (Convert.ToInt32(Console.ReadLine()));
 
                     foreach (string path in filePaths)
                     {
+                        //Subtract select by 1 because the user choice starts at 1 but the array is 0-indexed.
                         if ((filePaths[select - 1]).Equals(path))
                         {
                             //grab what the user picks and starts the menuing over again
@@ -102,7 +104,7 @@ namespace concur_parser
                     filePaths = Directory.GetFiles(filePath, "*.txt");
                     for (int i = 0; i < filePaths.Length; i++)
                     {
-                        Console.WriteLine((i + 1).ToString() + ") " + filePaths[i]);
+                        Console.WriteLine((i + 1).ToString() + "> " + filePaths[i]);
                     }
 
                     int select = (Convert.ToInt32(Console.ReadLine()));
