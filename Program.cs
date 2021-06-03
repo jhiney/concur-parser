@@ -12,9 +12,10 @@ namespace concur_parser
             //Starting variables
             //TODO: Make the starting filepath either dynamic or something other than being hardcoded.
             string filePath = @"K:\ACCTING\GENERAL\Expense reports\Concur Extracts";
+            string backUp = null;
             string previousPath = null;
             bool exploringFiles = true;         
-            filePath = MainMenu(filePath);
+            filePath = MainMenu(filePath, filePath);
             
             while (exploringFiles)
             {  
@@ -22,8 +23,10 @@ namespace concur_parser
                 if (filePath.Length != 0 && !filePath.Equals("found"))
                 {
                     //set the previous path before getting a new one
+                    backUp = previousPath;
                     previousPath = filePath;     
-                    filePath = MainMenu(filePath);
+                    filePath = MainMenu(filePath, backUp);
+                    
                 }
                 else
                 {
@@ -67,7 +70,7 @@ namespace concur_parser
             Console.Read();
         }
 
-        public static string MainMenu(string filePath) {
+        public static string MainMenu(string filePath, string backup) {
 
             //if the found filepath is NOT a text file, keep looking through folders
             if (!filePath.EndsWith(".txt"))
@@ -83,16 +86,18 @@ namespace concur_parser
                     {
                         Console.WriteLine((i + 1).ToString() + "> " + filePaths[i]);
                     }
-                    
+                    Console.WriteLine("Back(0)> " + backup);
                     //let the user pick a menu
                     int select = (Convert.ToInt32(Console.ReadLine()));
 
                     foreach (string path in filePaths)
                     {
+                        if (select == 0) { Console.Clear(); return backup; }
                         //Subtract select by 1 because the user choice starts at 1 but the array is 0-indexed.
                         if ((filePaths[select - 1]).Equals(path))
                         {
                             //grab what the user picks and starts the menuing over again
+                            Console.Clear();
                             return path;
                         }
                     }
@@ -114,6 +119,7 @@ namespace concur_parser
                         if ((filePaths[select - 1]).Equals(path))
                         {
                             //returns the chosen text file
+                            Console.Clear();
                             return path;
                         }
                     }
