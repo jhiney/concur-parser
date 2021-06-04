@@ -90,7 +90,10 @@ namespace concur_parser
                         Console.ResetColor();
                         Console.WriteLine(filePaths[i]);
                     }
+
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("Back(0)> " + backup);
+                    Console.ResetColor();
                     //let the user pick a menu
                     int select = (Convert.ToInt32(Console.ReadLine()));
 
@@ -118,11 +121,15 @@ namespace concur_parser
                         Console.ResetColor();
                         Console.WriteLine(filePaths[i]);
                     }
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("Back(0)> " + backup);
+                    Console.ResetColor();
 
                     int select = (Convert.ToInt32(Console.ReadLine()));
 
                     foreach (string path in filePaths)
                     {
+                        if (select == 0) { Console.Clear(); return backup; }
                         if ((filePaths[select - 1]).Equals(path))
                         {
                             //returns the chosen text file
@@ -130,6 +137,7 @@ namespace concur_parser
                             return path;
                         }
                     }
+                    
                 }
             }
             //if the filepath is a text file - returns "found"
