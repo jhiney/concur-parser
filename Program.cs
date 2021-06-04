@@ -36,6 +36,9 @@ namespace concur_parser
             Console.Write("Enter Month End Closing Date (YYYY-MM-DD): ");
             string newDate = Console.ReadLine();
 
+            Console.Write("Name of output file? No need for .txt :");
+            string outputFileName = Console.ReadLine();
+
             List<string> newItems = new List<string>();
 
             //We open the previous path because technically the filePath is now "found"
@@ -58,13 +61,12 @@ namespace concur_parser
                     newItems.Add(string.Join('|', parts));
                 }
             }
+
             //write all the lines to the output file
-            //TODO: Make the output file dynamic
-            File.WriteAllLines("C:\\Users\\jhiney\\source\\repos\\concur-parser\\output.txt", newItems.ToArray());
+            File.WriteAllLines(Path.Combine(Directory.GetParent(previousPath).ToString(),outputFileName + ".txt"), newItems.ToArray());
 
             //You are done - read a character
             Console.WriteLine("Done");
-            Console.Read();
         }
 
         public static string MainMenu(string filePath)
@@ -137,7 +139,6 @@ namespace concur_parser
                             return path;
                         }
                     }
-                    
                 }
             }
             //if the filepath is a text file - returns "found"
