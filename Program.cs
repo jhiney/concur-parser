@@ -70,7 +70,9 @@ namespace concur_parser
         public static string MainMenu(string filePath)
         {
             string backup = Directory.GetParent(filePath).ToString();
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Currently looking in: " + filePath);
+            Console.ResetColor();
             //if the found filepath is NOT a text file, keep looking through folders
             if (!filePath.EndsWith(".txt"))
             {
@@ -83,7 +85,10 @@ namespace concur_parser
                     //write out the subdirectories as a menu
                     for (int i = 0; i < filePaths.Length; i++)
                     {
-                        Console.WriteLine((i + 1).ToString() + "> " + filePaths[i]);
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.Write((i + 1).ToString() + "> ");
+                        Console.ResetColor();
+                        Console.WriteLine(filePaths[i]);
                     }
                     Console.WriteLine("Back(0)> " + backup);
                     //let the user pick a menu
@@ -108,7 +113,10 @@ namespace concur_parser
                     filePaths = Directory.GetFiles(filePath, "*.txt");
                     for (int i = 0; i < filePaths.Length; i++)
                     {
-                        Console.WriteLine((i + 1).ToString() + "> " + filePaths[i]);
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.Write((i + 1).ToString() + "> ");
+                        Console.ResetColor();
+                        Console.WriteLine(filePaths[i]);
                     }
 
                     int select = (Convert.ToInt32(Console.ReadLine()));
