@@ -10,8 +10,7 @@ namespace concur_parser
         private static void Main(string[] args)
         {
             //Starting variables
-            string filePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString();
-            filePath = Directory.GetParent(filePath).ToString();
+            string filePath = Directory.GetParent(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString()).ToString();
             string previousPath = null;
             bool exploringFiles = true;
             filePath = MainMenu(filePath);
