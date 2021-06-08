@@ -10,8 +10,8 @@ namespace concur_parser
         private static void Main(string[] args)
         {
             //Starting variables
-            //TODO: Make the starting filepath either dynamic or something other than being hardcoded.
-            string filePath = @"K:\ACCTING\GENERAL\Expense reports\Concur Extracts";
+            string filePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString();
+            filePath = Directory.GetParent(filePath).ToString();
             string previousPath = null;
             bool exploringFiles = true;
             filePath = MainMenu(filePath);
