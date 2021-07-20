@@ -40,6 +40,8 @@ namespace concur_parser
 
             List<string> newItems = new List<string>();
 
+            List<string> cashItems = new List<string>();
+
             //We open the previous path because technically the filePath is now "found"
             //TODO: Need to think of a more elegant solution for this
             StreamReader reader = File.OpenText(previousPath);
@@ -58,11 +60,19 @@ namespace concur_parser
                     parts[25] = newDate;
                     //add back the delimiter
                     newItems.Add(string.Join('|', parts));
+
+                    //////////////////////////////////////
+                    //This is the section grabbing all the cash expenses
+
+                    cashItems.Add(string.Join(',',parts[4],parts[124],parts[125]));
+                    
+
+
                 }
             }
 
             //write all the lines to the output file
-            File.WriteAllLines(Path.Combine(Directory.GetParent(previousPath).ToString(),outputFileName + ".txt"), newItems.ToArray());
+            File.WriteAllLines(Path.Combine(Directory.GetParent(previousPath).ToString(),outputFileName + ".txt"), cashItems.ToArray());
 
             //You are done - read a character
             Console.WriteLine("Done");
